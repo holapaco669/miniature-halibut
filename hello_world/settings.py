@@ -44,7 +44,20 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_browser_reload",
+    "blog"
 ]
+
+if 'CODESPACE_NAME' in os.environ:
+   codespace_name = config("CODESPACE_NAME")
+   codespace_domain = config("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
+   CSRF_TRUSTED_ORIGINS = [f'https://{codespace_name}-8000.{codespace_domain}']
+else:
+   CSRF_TRUSTED_ORIGINS = [
+       'https://localhost:8000',
+       'http://localhost:8000',
+       'https://127.0.0.1:8000',
+       'http://127.0.0.1:8000',
+   ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

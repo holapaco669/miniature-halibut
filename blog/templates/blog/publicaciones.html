@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <title>Mi Blog</title>
+   <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+</head>
+<body>
+   <h1>Mi Blog</h1>
+   <a href="{% url 'crear_post' %}"> Crear nueva publicación</a>
+   <div class="posts">
+       {% for post in posts %}
+           <div class="post">
+               <h2>{{ post.titulo }}</h2>
+               <p>{{ post.contenido }}</p>
+               <small>{{ post.fecha|date:"d M Y H:i" }}</small>
+               <p>{{ post.autor}}</p>
+           </div>
+       {% empty %}
+           <p>No hay publicaciones aún.</p>
+       {% endfor %}
+   </div>
+</body>
+</html>
+<h1>Mi Blog</h1>
+<a href="{% url 'crear_post' %}"> Crear nueva publicación</a>
+<br/>
+    <a href="{% url 'api_post_detail' 1 %}"> Primer post</a>
+    <br/>
+    <a href="{% url 'api_posts' %}"> APi js</a>
+    <br />
+    <a href="{% url 'json_api' %}"> Load data</a>

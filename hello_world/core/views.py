@@ -5,3 +5,4 @@ def index(request):
         "title": "Django example",
     }
     return render(request, "index.html", context)
+

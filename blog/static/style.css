@@ -1,0 +1,19 @@
+body {
+   font-family: Arial, sans-serif;
+   background-color: #f7f9fb;
+   color: #333;
+   margin: 40px;
+}
+
+h1 {
+   text-align: center;
+   color: #005f99;
+}
+
+.post {
+   background-color: white;
+   padding: 15px;
+   border-radius: 10px;
+   margin-bottom: 20px;
+   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
