@@ -1,0 +1,268 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión — CineVault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #e50914;
+            --red-dark: #b20710;
+            --bg: #0a0a0a;
+            --surface: #161616;
+            --surface2: #1f1f1f;
+            --border: #2a2a2a;
+            --muted: #888;
+        }
+ 
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+        body {
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        /* Fondo decorativo */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 50%, rgba(229,9,20,.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(229,9,20,.05) 0%, transparent 40%);
+            pointer-events: none;
+        }
+ 
+        /* Grid de películas de fondo */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 4px;
+            opacity: .04;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+ 
+        .bg-grid div {
+            background: #333;
+            border-radius: 2px;
+        }
+ 
+        /* Logo */
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 42px;
+            letter-spacing: 4px;
+            color: var(--red);
+            text-shadow: 0 0 40px rgba(229,9,20,.4);
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+        }
+ 
+        /* Card del formulario */
+        .card {
+            position: relative;
+            z-index: 2;
+            background: rgba(22,22,22,.95);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 44px 48px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 30px 80px rgba(0,0,0,.6);
+            animation: cardIn .5s cubic-bezier(.34,1.56,.64,1) both;
+        }
+ 
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(30px) scale(.96); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+ 
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--red);
+            border-radius: 14px 14px 0 0;
+        }
+ 
+        .card-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+        }
+ 
+        .card-subtitle {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 300;
+            margin-bottom: 28px;
+        }
+ 
+        /* Error */
+        .alert-error {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(229,9,20,.1);
+            border: 1px solid rgba(229,9,20,.35);
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #ff6b6b;
+        }
+ 
+        /* Campos */
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 18px;
+        }
+ 
+        label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+ 
+        input {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            padding: 12px 14px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            width: 100%;
+        }
+ 
+        input:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(229,9,20,.12);
+        }
+ 
+        input::placeholder { color: #444; }
+ 
+        /* Botón */
+        .btn-login {
+            width: 100%;
+            background: var(--red);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 13px;
+            cursor: pointer;
+            letter-spacing: .5px;
+            margin-top: 6px;
+            transition: background .2s, transform .15s, box-shadow .2s;
+        }
+ 
+        .btn-login:hover {
+            background: var(--red-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(229,9,20,.3);
+        }
+ 
+        /* Footer de la card */
+        .card-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+        }
+ 
+        .card-footer a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .card-footer a:hover { color: var(--red); }
+ 
+        /* Footer de página */
+        .page-footer {
+            position: relative;
+            z-index: 2;
+            margin-top: 24px;
+            font-size: 12px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+ 
+<!-- Fondo decorativo -->
+<div class="bg-grid">
+    {% for i in "12345678901234567890123456789012" %}
+    <div></div>
+    {% endfor %}
+</div>
+ 
+<!-- Logo -->
+<a class="logo" href="/">CINEVAULT</a>
+ 
+<!-- Card de login -->
+<div class="card">
+    <div class="card-title">Iniciar sesión</div>
+    <div class="card-subtitle">Accede para gestionar el catálogo</div>
+ 
+    {% if form.errors %}
+    <div class="alert-error">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Usuario o contraseña incorrectos
+    </div>
+    {% endif %}
+ 
+    <form method="POST">
+        {% csrf_token %}
+ 
+        <div class="field">
+            <label>Usuario</label>
+            <input type="text" name="username" placeholder="Tu nombre de usuario" autofocus>
+        </div>
+ 
+        <div class="field">
+            <label>Contraseña</label>
+            <input type="password" name="password" placeholder="••••••••">
+        </div>
+ 
+        <button type="submit" class="btn-login">Entrar a CineVault</button>
+    </form>
+ 
+    <div class="card-footer">
+        ¿No tienes cuenta? Pide acceso al <a href="/admin/">administrador</a>
+    </div>
+</div>
+ 
+<div class="page-footer">CineVault © 2025</div>
+ 
+</body>
+</html>
