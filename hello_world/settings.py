@@ -33,9 +33,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_browser_reload",
-    "blog",
+    'cloudinary_storage',
+    'cloudinary',
+    'blog',
 ]
- 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",        # ← para archivos estáticos en Render

@@ -7,7 +7,7 @@ class Pelicula(models.Model):
     descripcion = models.TextField()
     duracion = models.CharField(max_length=50)
 
-    imagen = models.ImageField(upload_to='peliculas/')  # ✅ LOCAL
+    imagen = models.ImageField(upload_to='peliculas/', blank=True, null=True)
 
     def __str__(self):
         return self.titulo
