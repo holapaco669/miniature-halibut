@@ -6,3 +6,5 @@ Pillow==11.2.1
 django-browser-reload==1.13.0
 sqlparse==0.5.3
 asgiref==3.8.1
+
+cloudinary
