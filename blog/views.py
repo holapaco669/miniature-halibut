@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
 from .models import Pelicula
  
  
@@ -18,7 +16,6 @@ def detalle_pelicula(request, id):
  
  
 # 📌 CREAR — solo usuarios autenticados
-@login_required
 def crear_pelicula(request):
     if request.method == "POST":
         titulo      = request.POST.get("titulo", "").strip()
@@ -41,7 +38,6 @@ def crear_pelicula(request):
             duracion=duracion,
             imagen=imagen
         )
-        logout(request)          # ← cierra sesión automáticamente
         return redirect("peliculas")
  
     return render(request, "blog/crear.html")

@@ -100,7 +100,12 @@ MEDIA_ROOT = BASE_DIR / "hello_world" / "media"
  
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
  
-# ── AUTH ──
-LOGIN_URL          = '/login/'
-LOGIN_REDIRECT_URL = '/'
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+# Cloudinary
+import cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY':    config('CLOUDINARY_API_KEY'),
+    'API_SECRET': config('CLOUDINARY_API_SECRET'),
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
