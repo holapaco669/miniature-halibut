@@ -1,0 +1,7 @@
+#python manage.py makemigrations
+#python manage.py migrate
+#git add .
+#git commit -m 
+#git push origin pruebas:main
+#python manage.py runserver
+#python manage.py createsuperuser

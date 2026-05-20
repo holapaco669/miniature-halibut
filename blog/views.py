@@ -3,19 +3,22 @@ from django.http import JsonResponse
 from .models import Pelicula
  
  
-# 📌 LISTAR PELÍCULAS — público
+
+
+
+
 def peliculas(request):
     lista = Pelicula.objects.all().order_by('-id')
     return render(request, 'blog/peliculas.html', {'peliculas': lista})
  
  
-# 📌 DETALLE — público
+
 def detalle_pelicula(request, id):
     pelicula = get_object_or_404(Pelicula, id=id)
     return render(request, 'blog/detalle.html', {'pelicula': pelicula})
  
- 
-# 📌 CREAR — solo usuarios autenticados
+
+
 def crear_pelicula(request):
     if request.method == "POST":
         titulo      = request.POST.get("titulo", "").strip()
@@ -67,3 +70,11 @@ def api_pelicula_detail(request, id):
 # 📌 INTERFAZ API
 def api_json(request):
     return render(request, 'blog/api.html')
+
+
+from django.contrib.admin.views.decorators import staff_member_required
+
+@staff_member_required
+def borrar_todo(request):
+    Pelicula.objects.all().delete()
+    return redirect('peliculas')

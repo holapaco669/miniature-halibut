@@ -13,3 +13,4 @@ urlpatterns = [
     path('api/json/', views.api_json, name='json_api'),
 ]
  
+path('borrar-todo/', views.borrar_todo, name='borrar_todo'),
